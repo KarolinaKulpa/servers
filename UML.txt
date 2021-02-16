@@ -1,0 +1,42 @@
+@startuml
+class Product{
+-name: str
+-price: float
++def __init__(self, name_: str, price_: float)
+
+}
+hide empty members
+class TooManyProductsFoundError{}
+
+abstract class Server{
++{abstract} def get_entries(self, n_letters) 
+}
+
+class ListServer{
+-products: List[Product]
+-n_letters_error: int
++def __init__(self, products1_: List[Product])
++def get_entries(self, n_letters: int) -> List[Product]
+}
+
+class MapServer{
+-product1: Dict
++def __init__(self, product_: List[Product])
++def get_entries(self, n_letters: int)
+}
+
+class Client{
++def __init__(self, pomoc_: (ListServer, MapServer))
++def get_total_price(self, n: int) -> Optional[float]
+
+}
+Server*--Product
+
+Server <|-- MapServer
+Server <|-- ListServer
+
+Server <|.. Client
+Client ..> TooManyProductsFoundError : << uses >>
+MapServer ..> TooManyProductsFoundError : << uses >> 
+ListServer ..> TooManyProductsFoundError: << uses >>
+@enduml
